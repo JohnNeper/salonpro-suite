@@ -1,7 +1,5 @@
 export type Lang = 'fr' | 'en';
 
-export const translations: Record<Lang, typeof fr> = { fr, en };
-
 const fr = {
   nav: { features: 'Fonctionnalités', pricing: 'Tarifs', preview: 'Aperçu', testimonials: 'Témoignages' },
   cta: 'Commencer',
