@@ -6,10 +6,11 @@ import { Badge } from '@/components/ui/badge';
 import {
   Users, Calendar, Star, Package, BarChart3, Megaphone,
   Check, ArrowRight, Sparkles, Shield, Smartphone, Globe,
-  Zap, Menu, X, Mail, MessageCircle, Crown, Heart
+  Zap, Menu, X, Mail, MessageCircle, Crown,
 } from 'lucide-react';
 import dashboardPreview from '@/assets/dashboard-preview.png';
 import salonInterior from '@/assets/salon-interior.jpg';
+import { translations, type Lang } from '@/lib/translations';
 
 const WHATSAPP_NUMBER = '+237658315610';
 const CONTACT_EMAIL = 'info@westdigitalhub.com';
@@ -18,145 +19,6 @@ const iconMap: Record<string, React.ElementType> = {
   Users, Calendar, Star, Package, BarChart3, Megaphone, Smartphone, Globe, Shield, Zap,
 };
 
-const t = {
-  nav: { features: 'Fonctionnalités', pricing: 'Tarifs', preview: 'Aperçu', testimonials: 'Témoignages' },
-  cta: 'Commencer',
-  login: 'Se connecter',
-  hero: {
-    badge: '🚀 La solution #1 pour les salons en Afrique',
-    titleHighlight: 'Gérez votre salon',
-    titleRest: 'de beauté comme un pro',
-    subtitle: 'Fidélisez vos clientes, gérez vos rendez-vous, stocks et finances — tout en un seul endroit. Simple, puissant, adapté à votre réalité.',
-    start: 'Démarrer maintenant',
-    whatsapp: 'Nous écrire sur WhatsApp',
-  },
-  stats: [
-    { value: '500+', label: 'Salons actifs' },
-    { value: '50K+', label: 'Clientes gérées' },
-    { value: '98%', label: 'Satisfaction' },
-    { value: '24/7', label: 'Support' },
-  ],
-  features: {
-    title: 'Tout ce dont votre salon a besoin',
-    subtitle: 'Une plateforme complète pour digitaliser et faire croître votre activité',
-    items: [
-      { icon: 'Users', title: 'Gestion Clientes', desc: 'Fichier client complet avec historique, parrainage et segmentation VIP' },
-      { icon: 'Calendar', title: 'Rendez-vous', desc: 'Calendrier interactif, rappels WhatsApp automatiques' },
-      { icon: 'Star', title: 'Programme Fidélité', desc: 'Points, bonus anniversaire, récompenses automatiques' },
-      { icon: 'Package', title: 'Gestion Stock', desc: 'Inventaire produits, alertes rupture, historique mouvements' },
-      { icon: 'BarChart3', title: 'Finances', desc: 'Revenus, dépenses, estimations de profit, export Excel' },
-      { icon: 'Megaphone', title: 'Campagnes Marketing', desc: 'Messages personnalisés WhatsApp, segmentation, automatisation' },
-    ],
-  },
-  preview: {
-    title: 'Découvrez BeautyFlow en action',
-    subtitle: 'Un tableau de bord complet, intuitif et pensé pour votre quotidien',
-    caption: 'Vue du tableau de bord — statistiques, rendez-vous, revenus et prestations en temps réel',
-    features: [
-      'Statistiques clientes en temps réel',
-      'Suivi des revenus et rendez-vous',
-      'Répartition des prestations',
-      'Alertes stock intelligentes',
-    ],
-  },
-  whyUs: {
-    title: 'Pourquoi BeautyFlow ?',
-    subtitle: 'Conçu pour les salons africains, par des experts qui comprennent votre marché',
-    items: [
-      { icon: 'Smartphone', title: 'Mobile-First', desc: 'Application installable (PWA), fonctionne même hors ligne' },
-      { icon: 'Globe', title: 'Adapté à l\'Afrique', desc: 'Paiement en FCFA, intégration WhatsApp, interface intuitive' },
-      { icon: 'Shield', title: 'Données sécurisées', desc: 'Vos données clientes sont protégées et sauvegardées' },
-      { icon: 'Zap', title: 'Simple & Rapide', desc: 'Prise en main en 5 minutes, pas besoin de formation' },
-    ],
-  },
-  pricing: {
-    title: 'Des tarifs adaptés à chaque salon',
-    subtitle: 'Pas de frais cachés. Évoluez à votre rythme.',
-    popular: 'Le plus populaire',
-    interested: 'Intéressé(e) par ce plan ?',
-    contactWhatsapp: 'Contacter via WhatsApp',
-    contactEmail: 'Contacter par email',
-    plans: [
-      {
-        key: 'basic',
-        name: 'Essentiel',
-        price: '5 000',
-        description: 'Idéal pour démarrer',
-        features: [
-          'Jusqu\'à 300 clientes', '2 comptes staff max', 'Gestion rendez-vous',
-          'Points fidélité (manuel)', 'Stock & alertes', 'Rapport mensuel simple', '1 campagne/mois',
-        ],
-      },
-      {
-        key: 'pro',
-        name: 'Professionnel',
-        price: '15 000',
-        description: 'Pour les salons en croissance',
-        popular: true,
-        features: [
-          'Clientes illimitées', '6 comptes staff max', 'Segmentation VIP',
-          'Règles fidélité auto', 'Bonus anniversaire', 'Historique stock',
-          'Export Excel/CSV', '5 campagnes/mois', 'Estimation profits',
-        ],
-      },
-      {
-        key: 'premium',
-        name: 'Premium',
-        price: '30 000',
-        description: 'Multi-succursales & automatisation',
-        features: [
-          'Tout illimité', 'Staff illimité', 'Multi-succursales',
-          'Automatisation complète', 'Business Intelligence',
-          'Campagnes illimitées', 'Support prioritaire', 'Tendances revenus',
-        ],
-      },
-    ],
-  },
-  testimonials: {
-    title: 'Ils nous font confiance',
-    subtitle: 'Des salons à travers le Cameroun utilisent BeautyFlow au quotidien',
-    items: [
-      { name: 'Marie-Claire N.', salon: 'Salon Élégance, Douala', text: 'Depuis qu\'on utilise BeautyFlow, nos clientes reviennent plus souvent. Le programme fidélité fait vraiment la différence !' },
-      { name: 'Fatou B.', salon: 'Beauty Queen, Yaoundé', text: 'J\'ai pu gérer 3 succursales facilement grâce au plan Premium. Un outil indispensable pour mon business.' },
-      { name: 'Aminata D.', salon: 'Afro Glam Studio, Douala', text: 'L\'application est tellement simple ! Mon staff l\'a adopté en une journée. Les rappels WhatsApp réduisent les no-shows.' },
-    ],
-  },
-  finalCta: {
-    title: 'Prêt à transformer votre salon ?',
-    subtitle: 'Rejoignez des centaines de salons qui font confiance à BeautyFlow pour gérer et faire croître leur activité.',
-    button: 'Commencer maintenant',
-    whatsapp: 'Discuter sur WhatsApp',
-    email: 'Envoyer un email',
-  },
-  footer: {
-    desc: 'La solution digitale #1 pour les salons de beauté en Afrique.',
-    product: 'Produit',
-    company: 'Entreprise',
-    contact: 'Contact',
-    about: 'À propos',
-    blog: 'Blog',
-    careers: 'Carrières',
-    terms: 'Conditions',
-    privacy: 'Confidentialité',
-    rights: '© 2025 LeaderBright. Tous droits réservés.',
-  },
-};
-
-function openWhatsApp(planLabel?: string) {
-  const msg = planLabel
-    ? `Bonjour, je suis intéressé(e) par le plan ${planLabel} de BeautyFlow. Pouvez-vous m'en dire plus ?`
-    : `Bonjour, je souhaite en savoir plus sur BeautyFlow pour mon salon.`;
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-}
-
-function openEmail(planLabel?: string) {
-  const subject = planLabel
-    ? `Intérêt pour le plan ${planLabel} — BeautyFlow`
-    : `Demande d'information — BeautyFlow`;
-  const body = `Bonjour,\n\nJe souhaite en savoir plus sur BeautyFlow${planLabel ? ` (plan ${planLabel})` : ''}.\n\nNom du salon :\nVille :\nTéléphone :\n\nMerci !`;
-  window.open(`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
-}
-
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number = 0) => ({ opacity: 1, y: 0, transition: { delay: i * 0.1, duration: 0.6, ease: 'easeOut' } }),
@@ -164,10 +26,25 @@ const fadeUp = {
 
 export default function LandingPage() {
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [lang, setLang] = useState<Lang>('fr');
+  const c = translations[lang];
+
+  const toggleLang = () => setLang(prev => prev === 'fr' ? 'en' : 'fr');
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setMobileMenu(false);
+  };
+
+  const openWhatsApp = (planLabel?: string) => {
+    const msg = planLabel ? c.whatsappMsg.withPlan(planLabel) : c.whatsappMsg.general;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  };
+
+  const openEmail = (planLabel?: string) => {
+    const subject = planLabel ? c.emailMsg.subjectPlan(planLabel) : c.emailMsg.subjectGeneral;
+    const body = planLabel ? c.emailMsg.bodyPlan(planLabel) : c.emailMsg.bodyGeneral;
+    window.open(`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
   };
 
   return (
@@ -185,33 +62,49 @@ export default function LandingPage() {
           <div className="hidden md:flex items-center gap-8">
             {(['features', 'preview', 'pricing', 'testimonials'] as const).map(s => (
               <button key={s} onClick={() => scrollTo(s)} className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium">
-                {t.nav[s]}
+                {c.nav[s]}
               </button>
             ))}
           </div>
 
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={() => openWhatsApp()}>{t.login}</Button>
+            {/* Language switcher */}
+            <button
+              onClick={toggleLang}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors border border-border"
+            >
+              <Globe className="w-3.5 h-3.5" />
+              {lang === 'fr' ? 'EN' : 'FR'}
+            </button>
+            <Button variant="ghost" size="sm" onClick={() => openWhatsApp()}>{c.login}</Button>
             <Button size="sm" className="gradient-primary border-0 text-primary-foreground shadow-warm">
-              {t.cta} <ArrowRight className="w-3.5 h-3.5 ml-1" />
+              {c.cta} <ArrowRight className="w-3.5 h-3.5 ml-1" />
             </Button>
           </div>
 
-          <button className="md:hidden text-foreground" onClick={() => setMobileMenu(!mobileMenu)}>
-            {mobileMenu ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          <div className="flex md:hidden items-center gap-2">
+            <button
+              onClick={toggleLang}
+              className="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-muted-foreground hover:text-foreground border border-border"
+            >
+              {lang === 'fr' ? 'EN' : 'FR'}
+            </button>
+            <button className="text-foreground" onClick={() => setMobileMenu(!mobileMenu)}>
+              {mobileMenu ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
 
         {mobileMenu && (
           <div className="md:hidden border-t border-border bg-card px-4 py-4 space-y-3">
             {(['features', 'preview', 'pricing', 'testimonials'] as const).map(s => (
               <button key={s} onClick={() => scrollTo(s)} className="block w-full text-left text-sm py-2 text-muted-foreground font-medium">
-                {t.nav[s]}
+                {c.nav[s]}
               </button>
             ))}
             <div className="flex gap-2 pt-2">
-              <Button variant="outline" size="sm" className="flex-1">{t.login}</Button>
-              <Button size="sm" className="flex-1 gradient-primary border-0 text-primary-foreground">{t.cta}</Button>
+              <Button variant="outline" size="sm" className="flex-1">{c.login}</Button>
+              <Button size="sm" className="flex-1 gradient-primary border-0 text-primary-foreground">{c.cta}</Button>
             </div>
           </div>
         )}
@@ -221,24 +114,24 @@ export default function LandingPage() {
       <section id="hero" className="relative pt-24 pb-16 lg:pt-32 lg:pb-24 gradient-hero">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div initial="hidden" animate="visible" variants={fadeUp} className="space-y-6">
+            <motion.div initial="hidden" animate="visible" variants={fadeUp} key={lang + '-hero'} className="space-y-6">
               <Badge className="bg-coral-light text-coral-dark border-0 px-4 py-1.5 text-sm font-medium">
-                {t.hero.badge}
+                {c.hero.badge}
               </Badge>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold leading-tight text-foreground">
-                <span className="gradient-text">{t.hero.titleHighlight}</span>{' '}
-                {t.hero.titleRest}
+                <span className="gradient-text">{c.hero.titleHighlight}</span>{' '}
+                {c.hero.titleRest}
               </h1>
               <p className="text-lg text-muted-foreground max-w-lg leading-relaxed">
-                {t.hero.subtitle}
+                {c.hero.subtitle}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <Button size="lg" className="gradient-primary border-0 text-primary-foreground shadow-warm text-base px-8">
-                  {t.hero.start} <ArrowRight className="w-4 h-4 ml-2" />
+                  {c.hero.start} <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
                 <Button size="lg" variant="outline" onClick={() => openWhatsApp()} className="text-base border-border">
                   <MessageCircle className="w-4 h-4 mr-2" />
-                  {t.hero.whatsapp}
+                  {c.hero.whatsapp}
                 </Button>
               </div>
             </motion.div>
@@ -264,13 +157,8 @@ export default function LandingPage() {
           </div>
 
           {/* Stats */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 lg:mt-24"
-          >
-            {t.stats.map((s, i) => (
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 lg:mt-24">
+            {c.stats.map((s, i) => (
               <motion.div key={i} variants={fadeUp} custom={i}>
                 <Card className="text-center border-border shadow-card hover:shadow-warm transition-shadow duration-300">
                   <CardContent className="py-6">
@@ -288,12 +176,12 @@ export default function LandingPage() {
       <section id="features" className="py-20 lg:py-28 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground">{t.features.title}</h2>
-            <p className="text-muted-foreground mt-4 text-lg">{t.features.subtitle}</p>
+            <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground">{c.features.title}</h2>
+            <p className="text-muted-foreground mt-4 text-lg">{c.features.subtitle}</p>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {t.features.items.map((f, i) => {
+            {c.features.items.map((f, i) => {
               const Icon = iconMap[f.icon] || Sparkles;
               return (
                 <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
@@ -318,15 +206,15 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center max-w-2xl mx-auto mb-16">
             <Badge className="bg-coral-light text-coral-dark border-0 px-4 py-1.5 text-sm mb-4">
-              <Sparkles className="w-3 h-3 mr-1.5" /> Aperçu de la solution
+              <Sparkles className="w-3 h-3 mr-1.5" /> {c.preview.badge}
             </Badge>
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground">{t.preview.title}</h2>
-            <p className="text-muted-foreground mt-4 text-lg">{t.preview.subtitle}</p>
+            <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground">{c.preview.title}</h2>
+            <p className="text-muted-foreground mt-4 text-lg">{c.preview.subtitle}</p>
           </motion.div>
 
           <div className="grid lg:grid-cols-5 gap-10 items-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="lg:col-span-2 space-y-4">
-              {t.preview.features.map((feat, i) => (
+              {c.preview.features.map((feat, i) => (
                 <motion.div key={i} variants={fadeUp} custom={i} className="flex items-start gap-3 p-4 rounded-xl bg-card border border-border shadow-card">
                   <div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center flex-shrink-0 mt-0.5">
                     <Check className="w-4 h-4 text-primary-foreground" />
@@ -336,7 +224,7 @@ export default function LandingPage() {
               ))}
               <div className="pt-4">
                 <Button className="gradient-primary border-0 text-primary-foreground shadow-warm" onClick={() => scrollTo('pricing')}>
-                  Choisir mon plan <ArrowRight className="w-4 h-4 ml-2" />
+                  {c.preview.choosePlan} <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
             </motion.div>
@@ -357,7 +245,7 @@ export default function LandingPage() {
                 </div>
                 <img src={dashboardPreview} alt="BeautyFlow Dashboard" className="w-full" loading="lazy" width={1280} height={800} />
               </div>
-              <p className="text-center text-sm text-muted-foreground mt-4">{t.preview.caption}</p>
+              <p className="text-center text-sm text-muted-foreground mt-4">{c.preview.caption}</p>
             </motion.div>
           </div>
         </div>
@@ -379,10 +267,10 @@ export default function LandingPage() {
             </motion.div>
 
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-              <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground">{t.whyUs.title}</h2>
-              <p className="text-muted-foreground mt-3 mb-8 text-lg">{t.whyUs.subtitle}</p>
+              <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground">{c.whyUs.title}</h2>
+              <p className="text-muted-foreground mt-3 mb-8 text-lg">{c.whyUs.subtitle}</p>
               <div className="space-y-5">
-                {t.whyUs.items.map((item, i) => {
+                {c.whyUs.items.map((item, i) => {
                   const Icon = iconMap[item.icon] || Sparkles;
                   return (
                     <motion.div key={i} variants={fadeUp} custom={i} className="flex items-start gap-4">
@@ -406,18 +294,18 @@ export default function LandingPage() {
       <section id="pricing" className="py-20 lg:py-28 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground">{t.pricing.title}</h2>
-            <p className="text-muted-foreground mt-4 text-lg">{t.pricing.subtitle}</p>
+            <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground">{c.pricing.title}</h2>
+            <p className="text-muted-foreground mt-4 text-lg">{c.pricing.subtitle}</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            {t.pricing.plans.map((plan, idx) => (
+            {c.pricing.plans.map((plan, idx) => (
               <motion.div key={plan.key} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={idx}>
                 <Card className={`relative h-full border-2 transition-all duration-300 hover:-translate-y-1 ${plan.popular ? 'border-coral shadow-warm scale-[1.02]' : 'border-border shadow-card hover:shadow-warm'}`}>
                   {plan.popular && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                       <Badge className="gradient-primary text-primary-foreground border-0 px-4 py-1">
-                        <Crown className="w-3 h-3 mr-1" /> {t.pricing.popular}
+                        <Crown className="w-3 h-3 mr-1" /> {c.pricing.popular}
                       </Badge>
                     </div>
                   )}
@@ -428,7 +316,7 @@ export default function LandingPage() {
                     </div>
                     <div className="flex items-baseline gap-1 mb-6">
                       <span className="text-4xl font-display font-bold text-foreground">{plan.price}</span>
-                      <span className="text-muted-foreground text-sm">FCFA/mois</span>
+                      <span className="text-muted-foreground text-sm">{c.pricing.perMonth}</span>
                     </div>
                     <div className="space-y-3 mb-8 flex-1">
                       {plan.features.map((f, i) => (
@@ -439,12 +327,12 @@ export default function LandingPage() {
                       ))}
                     </div>
                     <div className="space-y-2 pt-4 border-t border-border">
-                      <p className="text-xs text-muted-foreground text-center mb-2">{t.pricing.interested}</p>
+                      <p className="text-xs text-muted-foreground text-center mb-2">{c.pricing.interested}</p>
                       <Button className="w-full gradient-primary border-0 text-primary-foreground shadow-warm" onClick={() => openWhatsApp(plan.name)}>
-                        <MessageCircle className="w-4 h-4 mr-2" /> {t.pricing.contactWhatsapp}
+                        <MessageCircle className="w-4 h-4 mr-2" /> {c.pricing.contactWhatsapp}
                       </Button>
                       <Button variant="outline" className="w-full border-border" onClick={() => openEmail(plan.name)}>
-                        <Mail className="w-4 h-4 mr-2" /> {t.pricing.contactEmail}
+                        <Mail className="w-4 h-4 mr-2" /> {c.pricing.contactEmail}
                       </Button>
                     </div>
                   </CardContent>
@@ -459,12 +347,12 @@ export default function LandingPage() {
       <section id="testimonials" className="py-20 lg:py-28 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground">{t.testimonials.title}</h2>
-            <p className="text-muted-foreground mt-4 text-lg">{t.testimonials.subtitle}</p>
+            <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground">{c.testimonials.title}</h2>
+            <p className="text-muted-foreground mt-4 text-lg">{c.testimonials.subtitle}</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {t.testimonials.items.map((item, i) => (
+            {c.testimonials.items.map((item, i) => (
               <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
                 <Card className="h-full border-border shadow-card hover:shadow-warm transition-shadow duration-300">
                   <CardContent className="p-6">
@@ -497,17 +385,17 @@ export default function LandingPage() {
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(255,255,255,0.05) 0%, transparent 50%)' }} />
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="max-w-3xl mx-auto px-4 text-center relative z-10">
           <Sparkles className="w-10 h-10 text-primary-foreground/80 mx-auto mb-6" />
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-primary-foreground">{t.finalCta.title}</h2>
-          <p className="text-primary-foreground/80 mt-4 text-lg max-w-xl mx-auto">{t.finalCta.subtitle}</p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-primary-foreground">{c.finalCta.title}</h2>
+          <p className="text-primary-foreground/80 mt-4 text-lg max-w-xl mx-auto">{c.finalCta.subtitle}</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
             <Button size="lg" className="bg-card text-foreground hover:bg-card/90 text-base px-8 shadow-warm">
-              {t.finalCta.button} <ArrowRight className="w-4 h-4 ml-2" />
+              {c.finalCta.button} <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
             <Button size="lg" variant="outline" onClick={() => openWhatsApp()} className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 text-base">
-              <MessageCircle className="w-4 h-4 mr-2" /> {t.finalCta.whatsapp}
+              <MessageCircle className="w-4 h-4 mr-2" /> {c.finalCta.whatsapp}
             </Button>
             <Button size="lg" variant="outline" onClick={() => openEmail()} className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 text-base">
-              <Mail className="w-4 h-4 mr-2" /> {t.finalCta.email}
+              <Mail className="w-4 h-4 mr-2" /> {c.finalCta.email}
             </Button>
           </div>
         </motion.div>
@@ -524,7 +412,7 @@ export default function LandingPage() {
                 </div>
                 <span className="font-display font-bold text-lg text-background">BeautyFlow</span>
               </div>
-              <p className="text-background/60 text-sm">{t.footer.desc}</p>
+              <p className="text-background/60 text-sm">{c.footer.desc}</p>
               <div className="flex gap-3 mt-4">
                 <button onClick={() => openWhatsApp()} className="w-9 h-9 rounded-lg bg-background/10 flex items-center justify-center hover:bg-background/20 transition-colors">
                   <MessageCircle className="w-4 h-4 text-background/70" />
@@ -536,25 +424,25 @@ export default function LandingPage() {
             </div>
 
             <div>
-              <h4 className="font-semibold text-background text-sm mb-4">{t.footer.product}</h4>
+              <h4 className="font-semibold text-background text-sm mb-4">{c.footer.product}</h4>
               <div className="space-y-2.5 text-sm text-background/60">
-                <button onClick={() => scrollTo('features')} className="block hover:text-background/90 transition-colors">{t.nav.features}</button>
-                <button onClick={() => scrollTo('pricing')} className="block hover:text-background/90 transition-colors">{t.nav.pricing}</button>
-                <button onClick={() => scrollTo('preview')} className="block hover:text-background/90 transition-colors">{t.nav.preview}</button>
+                <button onClick={() => scrollTo('features')} className="block hover:text-background/90 transition-colors">{c.nav.features}</button>
+                <button onClick={() => scrollTo('pricing')} className="block hover:text-background/90 transition-colors">{c.nav.pricing}</button>
+                <button onClick={() => scrollTo('preview')} className="block hover:text-background/90 transition-colors">{c.nav.preview}</button>
               </div>
             </div>
 
             <div>
-              <h4 className="font-semibold text-background text-sm mb-4">{t.footer.company}</h4>
+              <h4 className="font-semibold text-background text-sm mb-4">{c.footer.company}</h4>
               <div className="space-y-2.5 text-sm text-background/60">
-                <p className="hover:text-background/90 cursor-pointer transition-colors">{t.footer.about}</p>
-                <p className="hover:text-background/90 cursor-pointer transition-colors">{t.footer.blog}</p>
-                <p className="hover:text-background/90 cursor-pointer transition-colors">{t.footer.careers}</p>
+                <p className="hover:text-background/90 cursor-pointer transition-colors">{c.footer.about}</p>
+                <p className="hover:text-background/90 cursor-pointer transition-colors">{c.footer.blog}</p>
+                <p className="hover:text-background/90 cursor-pointer transition-colors">{c.footer.careers}</p>
               </div>
             </div>
 
             <div>
-              <h4 className="font-semibold text-background text-sm mb-4">{t.footer.contact}</h4>
+              <h4 className="font-semibold text-background text-sm mb-4">{c.footer.contact}</h4>
               <div className="space-y-2.5 text-sm text-background/60">
                 <button onClick={() => openWhatsApp()} className="flex items-center gap-2 hover:text-background/90 transition-colors">
                   <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
@@ -567,7 +455,7 @@ export default function LandingPage() {
           </div>
 
           <div className="border-t border-background/10 mt-12 pt-8 text-center text-sm text-background/40">
-            {t.footer.rights}
+            {c.footer.rights}
           </div>
         </div>
       </footer>
