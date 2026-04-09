@@ -275,3 +275,5 @@ const en = {
 };
 
 export { fr, en };
+
+export const translations = { fr, en } as const;
