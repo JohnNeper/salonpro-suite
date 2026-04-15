@@ -1,7 +1,7 @@
 export type Lang = 'fr' | 'en';
 
 const fr = {
-  nav: { features: 'Fonctionnalités', pricing: 'Tarifs', preview: 'Aperçu', testimonials: 'Témoignages', faq: 'FAQ' },
+  nav: { features: 'Fonctionnalités', pricing: 'Tarifs', preview: 'Aperçu', testimonials: 'Témoignages', faq: 'FAQ', demo: 'Démo' },
   cta: 'Commencer',
   login: 'Se connecter',
   hero: {
@@ -144,6 +144,15 @@ const fr = {
       { q: 'Comment contacter le support ?', a: 'Notre équipe est disponible 24/7 via WhatsApp, email et dans l\'application directement.' },
     ],
   },
+  demo: {
+    badge: '🎬 Démonstration',
+    title: 'Demandez une démo personnalisée',
+    subtitle: 'Découvrez en 3 minutes comment BeautyFlow va transformer la gestion de votre salon. Cliquez pour voir la démo.',
+    watchBtn: 'Voir la démo vidéo',
+    requestBtn: 'Demander une démo en direct',
+    modalTitle: 'BeautyFlow en action',
+    closeBtn: 'Fermer',
+  },
   urgency: {
     text: '🔥 Offre limitée : les 50 prochains salons bénéficient de 2 mois gratuits !',
     cta: 'En profiter maintenant',
@@ -180,7 +189,7 @@ const fr = {
 };
 
 const en: typeof fr = {
-  nav: { features: 'Features', pricing: 'Pricing', preview: 'Preview', testimonials: 'Testimonials', faq: 'FAQ' },
+  nav: { features: 'Features', pricing: 'Pricing', preview: 'Preview', testimonials: 'Testimonials', faq: 'FAQ', demo: 'Demo' },
   cta: 'Get Started',
   login: 'Log In',
   hero: {
@@ -322,6 +331,15 @@ const en: typeof fr = {
       { q: 'How is my data protected?', a: 'Your data is encrypted and backed up daily on secure servers. Nothing is shared.' },
       { q: 'How do I contact support?', a: 'Our team is available 24/7 via WhatsApp, email, and directly in the app.' },
     ],
+  },
+  demo: {
+    badge: '🎬 Demo',
+    title: 'Request a personalized demo',
+    subtitle: 'Discover in 3 minutes how BeautyFlow will transform your salon management. Click to watch the demo.',
+    watchBtn: 'Watch demo video',
+    requestBtn: 'Request a live demo',
+    modalTitle: 'BeautyFlow in action',
+    closeBtn: 'Close',
   },
   urgency: {
     text: '🔥 Limited offer: the next 50 salons get 2 months free!',
