@@ -1,7 +1,7 @@
 export type Lang = 'fr' | 'en';
 
 const fr = {
-  nav: { features: 'Fonctionnalités', pricing: 'Tarifs', preview: 'Aperçu', testimonials: 'Témoignages' },
+  nav: { features: 'Fonctionnalités', pricing: 'Tarifs', preview: 'Aperçu', testimonials: 'Témoignages', faq: 'FAQ' },
   cta: 'Commencer',
   login: 'Se connecter',
   hero: {
@@ -9,8 +9,9 @@ const fr = {
     titleHighlight: 'Gérez votre salon',
     titleRest: 'de beauté comme un pro',
     subtitle: 'Fidélisez vos clientes, gérez vos rendez-vous, stocks et finances — tout en un seul endroit. Simple, puissant, adapté à votre réalité.',
-    start: 'Démarrer maintenant',
+    start: 'Essai gratuit — 14 jours',
     whatsapp: 'Nous écrire sur WhatsApp',
+    noCard: 'Aucune carte bancaire requise',
   },
   stats: [
     { value: '500+', label: 'Salons actifs' },
@@ -18,6 +19,20 @@ const fr = {
     { value: '98%', label: 'Satisfaction' },
     { value: '24/7', label: 'Support' },
   ],
+  socialProof: {
+    title: 'Ils ont choisi BeautyFlow',
+    logos: ['Salon Élégance', 'Beauty Queen', 'Afro Glam', 'Glam Studio', 'Hair Palace', 'Belle Coiffure'],
+  },
+  painPoints: {
+    title: 'Sans BeautyFlow, votre salon perd de l\'argent',
+    subtitle: 'Voici ce qui freine votre croissance chaque jour',
+    items: [
+      { icon: 'X', before: 'Rendez-vous oubliés et no-shows', after: 'Rappels WhatsApp automatiques = -70% no-shows' },
+      { icon: 'X', before: 'Clientes qui ne reviennent pas', after: 'Programme fidélité intelligent = +45% rétention' },
+      { icon: 'X', before: 'Stocks en rupture sans le savoir', after: 'Alertes stock en temps réel = 0 rupture' },
+      { icon: 'X', before: 'Aucune visibilité sur les finances', after: 'Dashboard revenus & profits = décisions éclairées' },
+    ],
+  },
   features: {
     title: 'Tout ce dont votre salon a besoin',
     subtitle: 'Une plateforme complète pour digitaliser et faire croître votre activité',
@@ -53,6 +68,16 @@ const fr = {
       { icon: 'Zap', title: 'Simple & Rapide', desc: 'Prise en main en 5 minutes, pas besoin de formation' },
     ],
   },
+  results: {
+    title: 'Des résultats concrets',
+    subtitle: 'Les salons qui utilisent BeautyFlow voient des changements mesurables dès le premier mois',
+    items: [
+      { metric: '-70%', label: 'de no-shows grâce aux rappels automatiques' },
+      { metric: '+45%', label: 'de rétention client avec le programme fidélité' },
+      { metric: '+30%', label: 'de revenus grâce à une meilleure gestion' },
+      { metric: '5 min', label: 'pour prendre en main l\'application' },
+    ],
+  },
   pricing: {
     title: 'Des tarifs adaptés à chaque salon',
     subtitle: 'Pas de frais cachés. Évoluez à votre rythme.',
@@ -61,6 +86,7 @@ const fr = {
     contactWhatsapp: 'Contacter via WhatsApp',
     contactEmail: 'Contacter par email',
     perMonth: 'FCFA/mois',
+    guarantee: '✅ Essai gratuit 14 jours — Satisfait ou remboursé',
     plans: [
       {
         key: 'basic',
@@ -101,15 +127,31 @@ const fr = {
     title: 'Ils nous font confiance',
     subtitle: 'Des salons à travers le Cameroun utilisent BeautyFlow au quotidien',
     items: [
-      { name: 'Marie-Claire N.', salon: 'Salon Élégance, Douala', text: 'Depuis qu\'on utilise BeautyFlow, nos clientes reviennent plus souvent. Le programme fidélité fait vraiment la différence !' },
-      { name: 'Fatou B.', salon: 'Beauty Queen, Yaoundé', text: 'J\'ai pu gérer 3 succursales facilement grâce au plan Premium. Un outil indispensable pour mon business.' },
-      { name: 'Aminata D.', salon: 'Afro Glam Studio, Douala', text: 'L\'application est tellement simple ! Mon staff l\'a adopté en une journée. Les rappels WhatsApp réduisent les no-shows.' },
+      { name: 'Marie-Claire N.', salon: 'Salon Élégance, Douala', text: 'Depuis qu\'on utilise BeautyFlow, nos clientes reviennent plus souvent. Le programme fidélité fait vraiment la différence !', result: '+40% de clientes fidèles' },
+      { name: 'Fatou B.', salon: 'Beauty Queen, Yaoundé', text: 'J\'ai pu gérer 3 succursales facilement grâce au plan Premium. Un outil indispensable pour mon business.', result: '3 succursales gérées' },
+      { name: 'Aminata D.', salon: 'Afro Glam Studio, Douala', text: 'L\'application est tellement simple ! Mon staff l\'a adopté en une journée. Les rappels WhatsApp réduisent les no-shows.', result: '-65% de no-shows' },
     ],
+  },
+  faq: {
+    title: 'Questions fréquentes',
+    subtitle: 'Tout ce que vous devez savoir avant de commencer',
+    items: [
+      { q: 'Est-ce que je peux essayer gratuitement ?', a: 'Oui ! Vous bénéficiez de 14 jours d\'essai gratuit sur tous les plans, sans carte bancaire.' },
+      { q: 'Est-ce que ça marche sur téléphone ?', a: 'Absolument. BeautyFlow est une application mobile-first (PWA) qui fonctionne sur tout smartphone, même hors ligne.' },
+      { q: 'Comment fonctionne le programme fidélité ?', a: 'Chaque visite de vos clientes leur fait gagner des points. Vous définissez les récompenses (réductions, soins gratuits, etc.).' },
+      { q: 'Puis-je gérer plusieurs succursales ?', a: 'Oui, avec le plan Premium vous pouvez gérer un nombre illimité de succursales depuis un seul compte.' },
+      { q: 'Comment sont protégées mes données ?', a: 'Vos données sont chiffrées et sauvegardées quotidiennement sur des serveurs sécurisés. Rien n\'est partagé.' },
+      { q: 'Comment contacter le support ?', a: 'Notre équipe est disponible 24/7 via WhatsApp, email et dans l\'application directement.' },
+    ],
+  },
+  urgency: {
+    text: '🔥 Offre limitée : les 50 prochains salons bénéficient de 2 mois gratuits !',
+    cta: 'En profiter maintenant',
   },
   finalCta: {
     title: 'Prêt à transformer votre salon ?',
     subtitle: 'Rejoignez des centaines de salons qui font confiance à BeautyFlow pour gérer et faire croître leur activité.',
-    button: 'Commencer maintenant',
+    button: 'Commencer mon essai gratuit',
     whatsapp: 'Discuter sur WhatsApp',
     email: 'Envoyer un email',
   },
@@ -137,8 +179,8 @@ const fr = {
   },
 };
 
-const en = {
-  nav: { features: 'Features', pricing: 'Pricing', preview: 'Preview', testimonials: 'Testimonials' },
+const en: typeof fr = {
+  nav: { features: 'Features', pricing: 'Pricing', preview: 'Preview', testimonials: 'Testimonials', faq: 'FAQ' },
   cta: 'Get Started',
   login: 'Log In',
   hero: {
@@ -146,8 +188,9 @@ const en = {
     titleHighlight: 'Manage your salon',
     titleRest: 'like a true professional',
     subtitle: 'Retain your clients, manage appointments, inventory and finances — all in one place. Simple, powerful, built for your reality.',
-    start: 'Get started now',
+    start: 'Free trial — 14 days',
     whatsapp: 'Message us on WhatsApp',
+    noCard: 'No credit card required',
   },
   stats: [
     { value: '500+', label: 'Active salons' },
@@ -155,6 +198,20 @@ const en = {
     { value: '98%', label: 'Satisfaction' },
     { value: '24/7', label: 'Support' },
   ],
+  socialProof: {
+    title: 'They chose BeautyFlow',
+    logos: ['Salon Élégance', 'Beauty Queen', 'Afro Glam', 'Glam Studio', 'Hair Palace', 'Belle Coiffure'],
+  },
+  painPoints: {
+    title: 'Without BeautyFlow, your salon is losing money',
+    subtitle: 'Here\'s what\'s holding back your growth every day',
+    items: [
+      { icon: 'X', before: 'Forgotten appointments & no-shows', after: 'Auto WhatsApp reminders = -70% no-shows' },
+      { icon: 'X', before: 'Clients who never come back', after: 'Smart loyalty program = +45% retention' },
+      { icon: 'X', before: 'Stock running out without knowing', after: 'Real-time stock alerts = 0 stockouts' },
+      { icon: 'X', before: 'No visibility on finances', after: 'Revenue & profit dashboard = informed decisions' },
+    ],
+  },
   features: {
     title: 'Everything your salon needs',
     subtitle: 'A complete platform to digitize and grow your business',
@@ -190,6 +247,16 @@ const en = {
       { icon: 'Zap', title: 'Simple & Fast', desc: '5-minute setup, no training needed' },
     ],
   },
+  results: {
+    title: 'Proven results',
+    subtitle: 'Salons using BeautyFlow see measurable changes from the first month',
+    items: [
+      { metric: '-70%', label: 'no-shows thanks to automatic reminders' },
+      { metric: '+45%', label: 'client retention with the loyalty program' },
+      { metric: '+30%', label: 'revenue through better management' },
+      { metric: '5 min', label: 'to get started with the app' },
+    ],
+  },
   pricing: {
     title: 'Pricing that fits every salon',
     subtitle: 'No hidden fees. Scale at your pace.',
@@ -198,6 +265,7 @@ const en = {
     contactWhatsapp: 'Contact via WhatsApp',
     contactEmail: 'Contact by email',
     perMonth: 'FCFA/month',
+    guarantee: '✅ 14-day free trial — Money-back guarantee',
     plans: [
       {
         key: 'basic',
@@ -238,15 +306,31 @@ const en = {
     title: 'Trusted by salons',
     subtitle: 'Salons across Cameroon use BeautyFlow daily',
     items: [
-      { name: 'Marie-Claire N.', salon: 'Salon Élégance, Douala', text: 'Since we started using BeautyFlow, our clients come back more often. The loyalty program really makes a difference!' },
-      { name: 'Fatou B.', salon: 'Beauty Queen, Yaoundé', text: 'I managed 3 branches easily with the Premium plan. An essential tool for my business.' },
-      { name: 'Aminata D.', salon: 'Afro Glam Studio, Douala', text: 'The app is so simple! My staff adopted it in a day. WhatsApp reminders reduce no-shows.' },
+      { name: 'Marie-Claire N.', salon: 'Salon Élégance, Douala', text: 'Since we started using BeautyFlow, our clients come back more often. The loyalty program really makes a difference!', result: '+40% loyal clients' },
+      { name: 'Fatou B.', salon: 'Beauty Queen, Yaoundé', text: 'I managed 3 branches easily with the Premium plan. An essential tool for my business.', result: '3 branches managed' },
+      { name: 'Aminata D.', salon: 'Afro Glam Studio, Douala', text: 'The app is so simple! My staff adopted it in a day. WhatsApp reminders reduce no-shows.', result: '-65% no-shows' },
     ],
+  },
+  faq: {
+    title: 'Frequently asked questions',
+    subtitle: 'Everything you need to know before getting started',
+    items: [
+      { q: 'Can I try it for free?', a: 'Yes! You get a 14-day free trial on all plans, no credit card required.' },
+      { q: 'Does it work on mobile?', a: 'Absolutely. BeautyFlow is a mobile-first app (PWA) that works on any smartphone, even offline.' },
+      { q: 'How does the loyalty program work?', a: 'Each client visit earns points. You define the rewards (discounts, free treatments, etc.).' },
+      { q: 'Can I manage multiple branches?', a: 'Yes, with the Premium plan you can manage unlimited branches from a single account.' },
+      { q: 'How is my data protected?', a: 'Your data is encrypted and backed up daily on secure servers. Nothing is shared.' },
+      { q: 'How do I contact support?', a: 'Our team is available 24/7 via WhatsApp, email, and directly in the app.' },
+    ],
+  },
+  urgency: {
+    text: '🔥 Limited offer: the next 50 salons get 2 months free!',
+    cta: 'Claim it now',
   },
   finalCta: {
     title: 'Ready to transform your salon?',
     subtitle: 'Join hundreds of salons that trust BeautyFlow to manage and grow their business.',
-    button: 'Get started now',
+    button: 'Start my free trial',
     whatsapp: 'Chat on WhatsApp',
     email: 'Send an email',
   },
