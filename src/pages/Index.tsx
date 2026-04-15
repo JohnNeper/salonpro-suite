@@ -65,6 +65,7 @@ export default function LandingPage() {
   const [lang, setLang] = useState<Lang>('fr');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [demoOpen, setDemoOpen] = useState(false);
   const c = translations[lang];
 
   useEffect(() => {
