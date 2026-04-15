@@ -113,7 +113,7 @@ export default function LandingPage() {
           </div>
 
           <div className="hidden md:flex items-center gap-8">
-            {(['features', 'pricing', 'testimonials', 'faq'] as const).map(s => (
+            {(['features', 'demo', 'pricing', 'testimonials', 'faq'] as const).map(s => (
               <button key={s} onClick={() => scrollTo(s)} className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium">
                 {c.nav[s]}
               </button>
@@ -154,7 +154,7 @@ export default function LandingPage() {
               exit={{ opacity: 0, height: 0 }}
               className="md:hidden border-t border-border bg-card px-4 py-4 space-y-3 overflow-hidden"
             >
-              {(['features', 'pricing', 'testimonials', 'faq'] as const).map(s => (
+              {(['features', 'demo', 'pricing', 'testimonials', 'faq'] as const).map(s => (
                 <button key={s} onClick={() => scrollTo(s)} className="block w-full text-left text-sm py-2 text-muted-foreground font-medium">
                   {c.nav[s]}
                 </button>
