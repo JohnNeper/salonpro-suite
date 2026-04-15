@@ -8,7 +8,7 @@ import {
   Check, ArrowRight, Sparkles, Shield, Smartphone, Globe,
   Zap, Menu, X, Mail, MessageCircle, Crown, Play,
   ChevronDown, TrendingUp, Award, Clock, AlertTriangle,
-  CheckCircle2,
+  CheckCircle2, Video, PhoneCall,
 } from 'lucide-react';
 import dashboardPreview from '@/assets/dashboard-preview.png';
 import salonInterior from '@/assets/salon-interior.jpg';
