@@ -703,6 +703,72 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
+
+      {/* Floating WhatsApp Button */}
+      <motion.button
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 2, type: 'spring', stiffness: 200 }}
+        onClick={() => openWhatsApp()}
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-[#25D366] shadow-lg hover:shadow-xl hover:scale-110 transition-all flex items-center justify-center group"
+        aria-label="Chat on WhatsApp"
+      >
+        <MessageCircle className="w-7 h-7 text-primary-foreground" />
+        {/* Pulse ring */}
+        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20" />
+        {/* Tooltip */}
+        <span className="absolute right-full mr-3 bg-card text-foreground text-xs font-semibold px-3 py-2 rounded-lg shadow-card whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          {lang === 'fr' ? 'Besoin d\'aide ? 💬' : 'Need help? 💬'}
+        </span>
+      </motion.button>
+
+      {/* Demo Video Modal */}
+      <AnimatePresence>
+        {demoOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-foreground/90 flex items-center justify-center p-4"
+            onClick={() => setDemoOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25 }}
+              className="relative w-full max-w-4xl bg-card rounded-2xl overflow-hidden shadow-2xl"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between p-4 border-b border-border">
+                <h3 className="font-display font-bold text-foreground text-lg">{c.demo.modalTitle}</h3>
+                <button onClick={() => setDemoOpen(false)} className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center hover:bg-muted-foreground/20 transition-colors">
+                  <X className="w-4 h-4 text-foreground" />
+                </button>
+              </div>
+              <div className="aspect-video bg-foreground">
+                <video
+                  autoPlay
+                  controls
+                  playsInline
+                  className="w-full h-full object-cover"
+                  poster={dashboardPreview}
+                >
+                  <source src={heroVideo.url} type="video/mp4" />
+                </video>
+              </div>
+              <div className="p-4 flex flex-col sm:flex-row gap-3 justify-center bg-muted/30">
+                <Button className="gradient-primary border-0 text-primary-foreground shadow-warm" onClick={() => { setDemoOpen(false); openWhatsApp(); }}>
+                  <MessageCircle className="w-4 h-4 mr-2" /> {c.demo.requestBtn}
+                </Button>
+                <Button variant="outline" className="border-border" onClick={() => { setDemoOpen(false); scrollTo('pricing'); }}>
+                  {c.preview.choosePlan} <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
