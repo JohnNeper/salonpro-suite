@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -680,7 +681,7 @@ export default function LandingPage() {
               <h4 className="font-semibold text-background text-sm mb-4">{c.footer.company}</h4>
               <div className="space-y-2.5 text-sm text-background/60">
                 <p className="hover:text-background/90 cursor-pointer transition-colors">{c.footer.about}</p>
-                <p className="hover:text-background/90 cursor-pointer transition-colors">{c.footer.blog}</p>
+                <Link to="/blog" className="block hover:text-background/90 transition-colors">{c.footer.blog}</Link>
                 <p className="hover:text-background/90 cursor-pointer transition-colors">{c.footer.careers}</p>
               </div>
             </div>
