@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowRight, ArrowLeft, Clock, Search, Tag, BookOpen, Globe, Menu, X, MessageCircle } from 'lucide-react';
+import { ArrowRight, Clock, Search, Tag, BookOpen, Globe, Menu, X, MessageCircle, MapPin, TrendingUp, Sparkles } from 'lucide-react';
 import { translations, type Lang } from '@/lib/translations';
 import { blogPosts } from '@/lib/blog-data';
 
@@ -23,6 +23,7 @@ export default function Blog() {
   const c = translations[lang];
 
   const categories = [...new Set(blogPosts.map(p => p.category[lang]))];
+  const featured = blogPosts[0];
 
   const filtered = blogPosts.filter(post => {
     const matchSearch = search === '' ||
@@ -43,13 +44,22 @@ export default function Blog() {
       noResults: 'Aucun article trouvé',
       noResultsSub: 'Essayez avec d\'autres mots-clés',
       backHome: 'Retour à l\'accueil',
-      newsletter: 'Recevez nos meilleurs conseils',
-      newsletterSub: 'Inscrivez-vous pour recevoir des astuces exclusives pour votre salon chaque semaine.',
-      subscribe: 'S\'inscrire',
+      newsletter: '📬 Recevez nos meilleurs conseils pour salons africains',
+      newsletterSub: 'Rejoignez +2 000 gérants de salons au Cameroun, Sénégal et Côte d\'Ivoire qui reçoivent nos astuces exclusives chaque semaine.',
+      subscribe: 'S\'inscrire gratuitement',
       emailPlaceholder: 'Votre email',
       ctaTitle: 'Prêt à transformer votre salon ?',
-      ctaSub: 'Essayez BeautyFlow gratuitement pendant 14 jours',
-      ctaBtn: 'Commencer l\'essai gratuit',
+      ctaSub: 'Rejoignez les 500+ salons africains qui utilisent BeautyFlow',
+      ctaBtn: 'Commencer l\'essai gratuit — 14 jours',
+      featuredBadge: '⭐ Article vedette',
+      marketBadge: '🌍 Marché africain',
+      statsTitle: 'BeautyFlow en Afrique',
+      stat1: '500+ salons',
+      stat1Sub: 'au Cameroun, Sénégal, CI',
+      stat2: '98% satisfaction',
+      stat2Sub: 'de nos utilisateurs',
+      stat3: '+30% revenus',
+      stat3Sub: 'en moyenne après 3 mois',
     },
     en: {
       title: 'The BeautyFlow Blog',
@@ -60,13 +70,22 @@ export default function Blog() {
       noResults: 'No articles found',
       noResultsSub: 'Try different keywords',
       backHome: 'Back to home',
-      newsletter: 'Get our best tips',
-      newsletterSub: 'Subscribe to receive exclusive salon tips every week.',
-      subscribe: 'Subscribe',
+      newsletter: '📬 Get our best tips for African salons',
+      newsletterSub: 'Join 2,000+ salon owners in Cameroon, Senegal and Côte d\'Ivoire who receive our exclusive weekly tips.',
+      subscribe: 'Subscribe for free',
       emailPlaceholder: 'Your email',
       ctaTitle: 'Ready to transform your salon?',
-      ctaSub: 'Try BeautyFlow free for 14 days',
-      ctaBtn: 'Start free trial',
+      ctaSub: 'Join the 500+ African salons using BeautyFlow',
+      ctaBtn: 'Start free trial — 14 days',
+      featuredBadge: '⭐ Featured article',
+      marketBadge: '🌍 African market',
+      statsTitle: 'BeautyFlow in Africa',
+      stat1: '500+ salons',
+      stat1Sub: 'in Cameroon, Senegal, CI',
+      stat2: '98% satisfaction',
+      stat2Sub: 'from our users',
+      stat3: '+30% revenue',
+      stat3Sub: 'on average after 3 months',
     },
   };
   const t = blogT[lang];
@@ -105,25 +124,97 @@ export default function Blog() {
         )}
       </nav>
 
-      {/* Hero */}
-      <section className="relative py-20 lg:py-28 gradient-hero overflow-hidden">
+      {/* Hero with African pattern accent */}
+      <section className="relative py-20 lg:py-28 overflow-hidden">
+        <div className="absolute inset-0 gradient-hero" />
+        <div className="absolute top-0 left-0 w-full h-full opacity-[0.03]" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E")`,
+          backgroundSize: '60px 60px',
+        }} />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div initial="hidden" animate="visible" variants={fadeUp}>
-            <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 px-4 py-1.5 text-sm font-medium">
+            <Badge className="mb-4 bg-accent/10 text-accent border-accent/20 px-4 py-1.5 text-sm font-medium">
+              {t.marketBadge}
+            </Badge>
+            <Badge className="mb-6 ml-2 bg-primary/10 text-primary border-primary/20 px-4 py-1.5 text-sm font-medium">
               <BookOpen className="w-4 h-4 mr-2" /> Blog
             </Badge>
             <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
               {t.title}
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
               {t.subtitle}
             </p>
+            {/* Mini stats bar */}
+            <div className="flex flex-wrap justify-center gap-6 md:gap-10 mt-4">
+              {[
+                { icon: MapPin, label: t.stat1, sub: t.stat1Sub },
+                { icon: Sparkles, label: t.stat2, sub: t.stat2Sub },
+                { icon: TrendingUp, label: t.stat3, sub: t.stat3Sub },
+              ].map((s, i) => (
+                <motion.div key={i} custom={i} variants={fadeUp} className="flex items-center gap-2 text-left">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                    <s.icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-display font-bold text-foreground text-sm">{s.label}</p>
+                    <p className="text-xs text-muted-foreground">{s.sub}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
 
+      {/* Featured Article */}
+      {!search && !activeCategory && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20 mb-12">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+            <Link to={`/blog/${featured.slug}`}>
+              <Card className="group overflow-hidden border-border/50 hover:shadow-warm transition-all duration-300 hover:-translate-y-1">
+                <div className="grid md:grid-cols-2">
+                  <div className="relative aspect-[16/10] md:aspect-auto overflow-hidden">
+                    <img
+                      src={featured.image}
+                      alt={featured.title[lang]}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      width={800}
+                      height={544}
+                    />
+                    <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground border-0 text-xs font-semibold">
+                      {t.featuredBadge}
+                    </Badge>
+                  </div>
+                  <CardContent className="p-6 md:p-10 flex flex-col justify-center">
+                    <Badge className="w-fit mb-3 bg-primary/10 text-primary border-primary/20 text-xs">{featured.category[lang]}</Badge>
+                    <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                      {featured.title[lang]}
+                    </h2>
+                    <p className="text-muted-foreground mb-4 line-clamp-3">{featured.excerpt[lang]}</p>
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground mb-4">
+                      <span className="flex items-center gap-1">{featured.author.avatar} {featured.author.name}</span>
+                      <span>{new Date(featured.date).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                      <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {featured.readTime[lang]}</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 mb-5">
+                      {featured.tags[lang].slice(0, 4).map(tag => (
+                        <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">{tag}</span>
+                      ))}
+                    </div>
+                    <span className="text-primary text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+                      {t.readMore} <ArrowRight className="w-4 h-4" />
+                    </span>
+                  </CardContent>
+                </div>
+              </Card>
+            </Link>
+          </motion.div>
+        </section>
+      )}
+
       {/* Search & Filters */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
         <div className="bg-card rounded-2xl shadow-card p-6 flex flex-col md:flex-row gap-4 items-center">
           <div className="relative flex-1 w-full">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -156,7 +247,7 @@ export default function Blog() {
       </section>
 
       {/* Articles Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         {filtered.length === 0 ? (
           <div className="text-center py-20">
             <Search className="w-16 h-16 text-muted-foreground/30 mx-auto mb-4" />
@@ -179,8 +270,12 @@ export default function Blog() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeUp}
-          className="gradient-warm rounded-3xl p-8 md:p-12 text-center"
+          className="gradient-warm rounded-3xl p-8 md:p-12 text-center relative overflow-hidden"
         >
+          <div className="absolute top-0 right-0 w-40 h-40 opacity-10" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='8' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E")`,
+            backgroundSize: '40px 40px',
+          }} />
           <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3">{t.newsletter}</h2>
           <p className="text-muted-foreground mb-6 max-w-lg mx-auto">{t.newsletterSub}</p>
           <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
@@ -197,13 +292,24 @@ export default function Blog() {
       </section>
 
       {/* CTA */}
-      <section className="gradient-primary py-16">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+      <section className="gradient-primary py-16 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0L80 40L40 80L0 40Z' fill='none' stroke='%23fff' stroke-width='1'/%3E%3C/svg%3E")`,
+          backgroundSize: '80px 80px',
+        }} />
+        <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
           <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground mb-4">{t.ctaTitle}</h2>
           <p className="text-primary-foreground/80 mb-8 text-lg">{t.ctaSub}</p>
-          <Button size="lg" className="bg-card text-foreground hover:bg-card/90 shadow-lg" asChild>
-            <Link to="/">{t.ctaBtn} <ArrowRight className="w-5 h-5 ml-2" /></Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="bg-card text-foreground hover:bg-card/90 shadow-lg" asChild>
+              <Link to="/">{t.ctaBtn} <ArrowRight className="w-5 h-5 ml-2" /></Link>
+            </Button>
+            <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+              <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer">
+                <MessageCircle className="w-5 h-5 mr-2" /> WhatsApp
+              </a>
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -248,6 +354,8 @@ function BlogCard({ post, lang, index, readMore }: { post: typeof blogPosts[0]; 
               alt={post.title[lang]}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
+              width={800}
+              height={544}
             />
             <Badge className="absolute top-4 left-4 bg-card/90 text-foreground border-0 backdrop-blur-sm text-xs">
               {post.category[lang]}
@@ -264,6 +372,11 @@ function BlogCard({ post, lang, index, readMore }: { post: typeof blogPosts[0]; 
             <p className="text-sm text-muted-foreground line-clamp-3 mb-4">
               {post.excerpt[lang]}
             </p>
+            <div className="flex flex-wrap gap-1.5 mb-4">
+              {post.tags[lang].slice(0, 3).map(tag => (
+                <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">{tag}</span>
+              ))}
+            </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="text-xl">{post.author.avatar}</span>

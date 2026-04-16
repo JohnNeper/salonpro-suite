@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ArrowRight, Clock, Tag, Globe, Share2, MessageCircle, BookOpen } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Clock, Tag, Globe, Share2, MessageCircle, BookOpen, MapPin } from 'lucide-react';
 import { translations, type Lang } from '@/lib/translations';
 import { blogPosts } from '@/lib/blog-data';
 
@@ -19,9 +19,26 @@ export default function BlogPost() {
   const postIndex = blogPosts.findIndex(p => p.slug === slug);
   const prevPost = postIndex > 0 ? blogPosts[postIndex - 1] : null;
   const nextPost = postIndex < blogPosts.length - 1 ? blogPosts[postIndex + 1] : null;
-  const relatedPosts = blogPosts.filter(p => p.slug !== slug).slice(0, 3);
+  const relatedPosts = blogPosts.filter(p => p.slug !== slug && p.category[lang] === post?.category[lang]).slice(0, 3);
+  const fallbackRelated = relatedPosts.length < 3 ? blogPosts.filter(p => p.slug !== slug && !relatedPosts.includes(p)).slice(0, 3 - relatedPosts.length) : [];
+  const allRelated = [...relatedPosts, ...fallbackRelated];
 
   useEffect(() => { window.scrollTo(0, 0); }, [slug]);
+
+  // Dynamic SEO meta tags
+  useEffect(() => {
+    if (!post) return;
+    document.title = post.seo.metaTitle[lang];
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', post.seo.metaDescription[lang]);
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', post.seo.metaTitle[lang]);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', post.seo.metaDescription[lang]);
+    return () => {
+      document.title = 'BeautyFlow — Logiciel de gestion pour salons de coiffure en Afrique';
+    };
+  }, [post, lang]);
 
   if (!post) {
     return (
@@ -40,8 +57,8 @@ export default function BlogPost() {
     return content.split('\n').map((line, i) => {
       if (line.startsWith('## ')) return <h2 key={i} className="font-display text-2xl font-bold text-foreground mt-8 mb-4">{line.replace('## ', '')}</h2>;
       if (line.startsWith('### ')) return <h3 key={i} className="font-display text-xl font-bold text-foreground mt-6 mb-3">{line.replace('### ', '')}</h3>;
-      if (line.startsWith('- ')) return <li key={i} className="text-muted-foreground ml-4 mb-1 list-disc">{renderInline(line.replace('- ', ''))}</li>;
-      if (line.trim() === '') return <br key={i} />;
+      if (line.startsWith('- ')) return <li key={i} className="text-muted-foreground ml-4 mb-2 list-disc leading-relaxed">{renderInline(line.replace('- ', ''))}</li>;
+      if (line.trim() === '') return <div key={i} className="h-2" />;
       return <p key={i} className="text-muted-foreground leading-relaxed mb-3">{renderInline(line)}</p>;
     });
   };
@@ -57,8 +74,8 @@ export default function BlogPost() {
   };
 
   const t = {
-    fr: { backBlog: 'Retour au blog', share: 'Partager', related: 'Articles similaires', prev: 'Précédent', next: 'Suivant', ctaTitle: 'Envie de tester BeautyFlow ?', ctaBtn: 'Essai gratuit 14 jours' },
-    en: { backBlog: 'Back to blog', share: 'Share', related: 'Related articles', prev: 'Previous', next: 'Next', ctaTitle: 'Want to try BeautyFlow?', ctaBtn: 'Free 14-day trial' },
+    fr: { backBlog: 'Retour au blog', share: 'Partager', related: 'Articles similaires', prev: 'Précédent', next: 'Suivant', ctaTitle: '🚀 Envie de tester BeautyFlow ?', ctaSub: 'Rejoignez les 500+ salons africains qui grandissent avec nous', ctaBtn: 'Essai gratuit 14 jours', shareWhatsApp: 'Partager sur WhatsApp' },
+    en: { backBlog: 'Back to blog', share: 'Share', related: 'Related articles', prev: 'Previous', next: 'Next', ctaTitle: '🚀 Want to try BeautyFlow?', ctaSub: 'Join the 500+ African salons growing with us', ctaBtn: 'Free 14-day trial', shareWhatsApp: 'Share on WhatsApp' },
   };
   const bt = t[lang];
 
@@ -87,20 +104,25 @@ export default function BlogPost() {
       {/* Article Header */}
       <article>
         <header className="relative">
-          <div className="aspect-[21/9] max-h-[400px] overflow-hidden">
-            <img src={post.image} alt={post.title[lang]} className="w-full h-full object-cover" />
+          <div className="aspect-[21/9] max-h-[450px] overflow-hidden">
+            <img src={post.image} alt={post.title[lang]} className="w-full h-full object-cover" width={800} height={544} />
             <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/30 to-transparent" />
           </div>
           <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
             <div className="max-w-3xl mx-auto">
-              <Badge className="mb-4 bg-primary/90 text-primary-foreground border-0">{post.category[lang]}</Badge>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <Badge className="bg-primary/90 text-primary-foreground border-0">{post.category[lang]}</Badge>
+                <Badge className="bg-accent/90 text-accent-foreground border-0 text-xs">
+                  <MapPin className="w-3 h-3 mr-1" /> {post.author.role[lang]}
+                </Badge>
+              </div>
               <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-background leading-tight mb-4">
                 {post.title[lang]}
               </h1>
               <div className="flex flex-wrap items-center gap-4 text-background/70 text-sm">
                 <span className="flex items-center gap-2">
                   <span className="text-lg">{post.author.avatar}</span>
-                  {post.author.name} — {post.author.role[lang]}
+                  {post.author.name}
                 </span>
                 <span>{new Date(post.date).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
                 <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {post.readTime[lang]}</span>
@@ -117,7 +139,15 @@ export default function BlogPost() {
               <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors">
                 <ArrowLeft className="w-4 h-4" /> {bt.backBlog}
               </Link>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
+                <a
+                  href={`https://wa.me/?text=${encodeURIComponent(post.title[lang] + ' — ' + shareUrl)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-xs text-[#25D366] hover:underline font-medium"
+                >
+                  <MessageCircle className="w-4 h-4" /> {bt.shareWhatsApp}
+                </a>
                 <button
                   onClick={() => navigator.share?.({ title: post.title[lang], url: shareUrl }).catch(() => {})}
                   className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -141,11 +171,23 @@ export default function BlogPost() {
             </div>
 
             {/* Inline CTA */}
-            <div className="gradient-warm rounded-2xl p-8 mt-10 text-center">
-              <h3 className="font-display text-xl font-bold text-foreground mb-3">{bt.ctaTitle}</h3>
-              <Button className="gradient-primary border-0 text-primary-foreground shadow-warm" asChild>
-                <Link to="/">{bt.ctaBtn} <ArrowRight className="w-4 h-4 ml-2" /></Link>
-              </Button>
+            <div className="gradient-warm rounded-2xl p-8 mt-10 text-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 opacity-10" style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0L40 20L20 40L0 20Z' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E")`,
+                backgroundSize: '40px 40px',
+              }} />
+              <h3 className="font-display text-xl md:text-2xl font-bold text-foreground mb-2">{bt.ctaTitle}</h3>
+              <p className="text-sm text-muted-foreground mb-4">{bt.ctaSub}</p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button className="gradient-primary border-0 text-primary-foreground shadow-warm" asChild>
+                  <Link to="/">{bt.ctaBtn} <ArrowRight className="w-4 h-4 ml-2" /></Link>
+                </Button>
+                <Button variant="outline" className="border-primary/30 text-primary hover:bg-primary/5" asChild>
+                  <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="w-4 h-4 mr-2" /> WhatsApp
+                  </a>
+                </Button>
+              </div>
             </div>
 
             {/* Prev / Next */}
@@ -171,11 +213,11 @@ export default function BlogPost() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <h2 className="font-display text-2xl font-bold text-foreground mb-8">{bt.related}</h2>
         <div className="grid md:grid-cols-3 gap-6">
-          {relatedPosts.map(rp => (
+          {allRelated.map(rp => (
             <Link key={rp.slug} to={`/blog/${rp.slug}`} className="group">
               <div className="rounded-xl overflow-hidden border border-border/50 hover:shadow-warm transition-all">
                 <div className="aspect-[16/10] overflow-hidden">
-                  <img src={rp.image} alt={rp.title[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                  <img src={rp.image} alt={rp.title[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width={800} height={544} />
                 </div>
                 <div className="p-4">
                   <Badge variant="secondary" className="text-xs mb-2">{rp.category[lang]}</Badge>
